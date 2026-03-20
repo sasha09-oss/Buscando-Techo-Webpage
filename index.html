@@ -10,10 +10,10 @@
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://tu-usuario.github.io/tu-repositorio/">
+<meta property="og:url" content="https://tu-usuario.github.io/buscando-techo/">
 <meta property="og:title" content="Buscando Techo | Tu Hogar en La Habana">
 <meta property="og:description" content="Encuentra tu hogar ideal en La Habana. Casas y apartamentos en venta.">
-<meta property="og:image" content="https://z-cdn-media.chatglm.cn/files/3110672a-28e2-4457-b485-06747a861b54.jpg">
+<meta property="og:image" content="assets/images/hero.jpg">
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image">
@@ -194,7 +194,7 @@ opacity: 1;
 .modal-content {
 background: var(--card);
 border-radius: 20px;
-max-width: 600px;
+max-width: 700px;
 width: 90%;
 max-height: 90vh;
 overflow-y: auto;
@@ -272,17 +272,6 @@ border-color: var(--accent);
 transform: translateY(-4px);
 box-shadow: 0 12px 30px rgba(74, 124, 126, 0.15);
 }
-.photo-preview {
-width: 80px;
-height: 80px;
-border-radius: 10px;
-object-fit: cover;
-border: 2px solid var(--border);
-transition: all 0.3s ease;
-}
-.photo-preview:hover {
-border-color: var(--accent);
-}
 .reveal {
 opacity: 0;
 transform: translateY(40px);
@@ -329,6 +318,7 @@ margin: 0 auto;
 width: 100%;
 height: auto;
 display: block;
+border-radius: 16px;
 }
 .map-btn {
 position: absolute;
@@ -352,6 +342,36 @@ transform: scale(1.05);
 .map-btn.active {
 background: rgba(74, 124, 126, 0.5);
 border-color: var(--accent);
+}
+.property-gallery {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 8px;
+margin-top: 16px;
+}
+.property-gallery img {
+width: 100%;
+height: 120px;
+object-fit: cover;
+border-radius: 8px;
+cursor: pointer;
+transition: transform 0.3s ease;
+}
+.property-gallery img:hover {
+transform: scale(1.05);
+}
+.loading-spinner {
+border: 4px solid var(--cream);
+border-top: 4px solid var(--accent);
+border-radius: 50%;
+width: 50px;
+height: 50px;
+animation: spin 1s linear infinite;
+margin: 40px auto;
+}
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
 }
 @media (prefers-reduced-motion: reduce) {
 *, *::before, *::after {
@@ -380,6 +400,7 @@ background: var(--accent-light);
 </style>
 </head>
 <body class="bg-pattern min-h-screen">
+
 <!-- Header -->
 <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -401,7 +422,7 @@ background: var(--accent-light);
 <nav class="hidden md:flex items-center gap-8">
 <a href="#" onclick="showPage('home')" class="nav-link active text-sm font-semibold" style="color: var(--fg-muted)" data-page="home">Inicio</a>
 <a href="#" onclick="showPage('ofertas')" class="nav-link text-sm font-semibold" style="color: var(--fg-muted)" data-page="ofertas">Ofertas</a>
-<a href="#" onclick="showPage('contacto')" class="nav-link text-sm font-semibold" style="color: var(--fg-muted)" data-page="contacto">Donde Encontrarnos</a>
+<a href="#" onclick="showPage('contacto')" class="nav-link text-sm font-semibold" style="color: var(--fg-muted)" data-page="contacto">Contacto</a>
 </nav>
 <!-- CTA Button -->
 <div class="hidden md:block">
@@ -424,8 +445,8 @@ background: var(--accent-light);
 <div class="mobile-menu">
 <div class="p-6">
 <div class="flex justify-between items-center mb-8">
-<span class="font-bold text-lg" style="color: var(--fg)">Menu</span>
-<button onclick="toggleMobileMenu()" class="p-2 rounded-lg hover:bg-gray-100" aria-label="Cerrar menu">
+<span class="font-bold text-lg" style="color: var(--fg)">Menú</span>
+<button onclick="toggleMobileMenu()" class="p-2 rounded-lg hover:bg-gray-100" aria-label="Cerrar menú">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 <line x1="18" y1="6" x2="6" y2="18"/>
 <line x1="6" y1="6" x2="18" y2="18"/>
@@ -435,7 +456,7 @@ background: var(--accent-light);
 <nav class="flex flex-col gap-4">
 <a href="#" onclick="showPage('home'); toggleMobileMenu();" class="py-3 px-4 rounded-lg hover:bg-gray-50 font-semibold" style="color: var(--fg)">Inicio</a>
 <a href="#" onclick="showPage('ofertas'); toggleMobileMenu();" class="py-3 px-4 rounded-lg hover:bg-gray-50 font-semibold" style="color: var(--fg)">Ofertas</a>
-<a href="#" onclick="showPage('contacto'); toggleMobileMenu();" class="py-3 px-4 rounded-lg hover:bg-gray-50 font-semibold" style="color: var(--fg)">Donde Encontrarnos</a>
+<a href="#" onclick="showPage('contacto'); toggleMobileMenu();" class="py-3 px-4 rounded-lg hover:bg-gray-50 font-semibold" style="color: var(--fg)">Contacto</a>
 </nav>
 <div class="mt-8">
 <button onclick="showPage('ofertas'); toggleMobileMenu();" class="btn-primary w-full">Ver Propiedades</button>
@@ -445,6 +466,7 @@ background: var(--accent-light);
 
 <!-- Main Content -->
 <main class="pt-20">
+
 <!-- HOME PAGE -->
 <div id="page-home" class="page active">
 <!-- Hero Section -->
@@ -460,18 +482,19 @@ Agencia Inmobiliaria en La Habana
 Encontramos el hogar que mereces
 </h1>
 <p class="text-lg mb-8 leading-relaxed" style="color: var(--fg-muted)">
-¿Estas buscando tu nuevo hogar? Nos dedicamos a encontrar la propiedad ideal para ti: una casa familiar, un apartamento de ensueño o una residencia con historia. Nuestro objetivo es brindarte las mejores opciones del mercado inmobiliario habanero.
+¿Estás buscando tu nuevo hogar? Nos dedicamos a encontrar la propiedad ideal para ti: una casa familiar, un apartamento de ensueño o una residencia con historia. Nuestro objetivo es brindarte las mejores opciones del mercado inmobiliario habanero.
 </p>
 <div class="flex flex-wrap gap-4">
 <button onclick="showPage('ofertas')" class="btn-primary">Explorar Propiedades</button>
-<button onclick="showPage('contacto')" class="btn-secondary">Contactanos</button>
+<button onclick="showPage('contacto')" class="btn-secondary">Contáctanos</button>
 </div>
 </div>
 <!-- Hero Image -->
 <div class="stagger-item hero-image-container" style="animation-delay: 0.3s">
-<img src="https://z-cdn-media.chatglm.cn/files/3110672a-28e2-4457-b485-06747a861b54.jpg"
+<img src="assets/images/hero.jpg"
 alt="Buscando Techo - Venta de Casas y Apartamentos en La Habana"
-class="w-full h-auto rounded-2xl shadow-2xl">
+class="w-full h-auto rounded-2xl shadow-2xl"
+onerror="this.src='https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop'">
 </div>
 </div>
 </div>
@@ -486,7 +509,7 @@ class="w-full h-auto rounded-2xl shadow-2xl">
 <div class="text-center mb-16 reveal">
 <h2 class="text-3xl sm:text-4xl font-bold mb-4" style="color: var(--fg)">El Mercado Inmobiliario Habanero</h2>
 <p class="text-lg max-w-3xl mx-auto" style="color: var(--fg-muted)">
-Entendemos los desafios de encontrar un hogar en La Habana. Nuestro compromiso es facilitar tu busqueda con transparencia y precios justos.
+Entendemos los desafíos de encontrar un hogar en La Habana. Nuestro compromiso es facilitar tu búsqueda con transparencia y precios justos.
 </p>
 </div>
 <div class="grid md:grid-cols-3 gap-8">
@@ -499,9 +522,9 @@ Entendemos los desafios de encontrar un hogar en La Habana. Nuestro compromiso e
 <path d="M2 12l10 5 10-5"/>
 </svg>
 </div>
-<h3 class="text-xl font-bold mb-3" style="color: var(--fg)">Mercado Volatil</h3>
+<h3 class="text-xl font-bold mb-3" style="color: var(--fg)">Mercado Volátil</h3>
 <p style="color: var(--fg-muted)">
-El mercado inmobiliario habanero es dinamico y cambiante. Te mantenemos informado sobre las tendencias y variaciones de precios para que tomes la mejor decision.
+El mercado inmobiliario habanero es dinámico y cambiante. Te mantenemos informado sobre las tendencias y variaciones de precios para que tomes la mejor decisión.
 </p>
 </div>
 <!-- Card 2 -->
@@ -514,7 +537,7 @@ El mercado inmobiliario habanero es dinamico y cambiante. Te mantenemos informad
 </div>
 <h3 class="text-xl font-bold mb-3" style="color: var(--fg)">Precios Justos</h3>
 <p style="color: var(--fg-muted)">
-Nuestra mision es facilitar el acceso a viviendas a precios equilibrados. Trabajamos directamente con propietarios para ofrecer opciones accesibles para todos.
+Nuestra misión es facilitar el acceso a viviendas a precios equilibrados. Trabajamos directamente con propietarios para ofrecer opciones accesibles para todos.
 </p>
 </div>
 <!-- Card 3 -->
@@ -529,7 +552,7 @@ Nuestra mision es facilitar el acceso a viviendas a precios equilibrados. Trabaj
 </div>
 <h3 class="text-xl font-bold mb-3" style="color: var(--fg)">Amplia Gama</h3>
 <p style="color: var(--fg-muted)">
-Desde apartamentos compactos hasta casas familiares amplias. Garantizamos que cualquier persona pueda encontrar el hogar que necesita en nuestro catalogo.
+Desde apartamentos compactos hasta casas familiares amplias. Garantizamos que cualquier persona pueda encontrar el hogar que necesita en nuestro catálogo.
 </p>
 </div>
 </div>
@@ -540,19 +563,19 @@ Desde apartamentos compactos hasta casas familiares amplias. Garantizamos que cu
 <section class="py-20">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="text-center mb-16 reveal">
-<h2 class="text-3xl sm:text-4xl font-bold mb-4" style="color: var(--fg)">Nuestros Numeros Hablan</h2>
+<h2 class="text-3xl sm:text-4xl font-bold mb-4" style="color: var(--fg)">Nuestros Números Hablan</h2>
 <p class="text-lg" style="color: var(--fg-muted)">Familias que ya encontraron su hogar con nosotros</p>
 </div>
 <div class="grid sm:grid-cols-3 gap-8">
 <div class="reveal text-center p-8 rounded-2xl" style="background: var(--card); box-shadow: 0 4px 20px rgba(45, 49, 66, 0.08); transition-delay: 0.1s">
-<div class="metric-value" id="metric-total">0</div>
+<div class="metric-value" id="metric-total">22</div>
 <p class="text-lg font-semibold mt-2" style="color: var(--fg)">Ventas Realizadas</p>
 <p class="text-sm" style="color: var(--fg-muted)">Familias ya tienen su hogar</p>
 </div>
 <div class="reveal text-center p-8 rounded-2xl" style="background: var(--card); box-shadow: 0 4px 20px rgba(45, 49, 66, 0.08); transition-delay: 0.2s">
-<div class="metric-value" id="metric-month">0</div>
+<div class="metric-value" id="metric-month">8</div>
 <p class="text-lg font-semibold mt-2" style="color: var(--fg)">Este Mes</p>
-<p class="text-sm" style="color: var(--fg-muted)">Ventas en los ultimos 30 dias</p>
+<p class="text-sm" style="color: var(--fg-muted)">Ventas en los últimos 30 días</p>
 </div>
 <div class="reveal text-center p-8 rounded-2xl" style="background: var(--card); box-shadow: 0 4px 20px rgba(45, 49, 66, 0.08); transition-delay: 0.3s">
 <div class="metric-value" id="metric-available">0</div>
@@ -573,9 +596,10 @@ Desde apartamentos compactos hasta casas familiares amplias. Garantizamos que cu
 <div class="reveal">
 <div class="bg-white rounded-3xl p-4 sm:p-8 shadow-xl max-w-4xl mx-auto">
 <div class="map-container">
-<img src="https://z-cdn-media.chatglm.cn/files/e1d9b924-9b69-44df-8cb2-a0b03d984605.jpg"
+<img src="assets/images/mapa-habana.jpg"
 alt="Mapa de Municipios de La Habana"
-usemap="#havana-map">
+class="rounded-2xl"
+onerror="this.src='https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&h=600&fit=crop'">
 <!-- Municipality Buttons positioned over map -->
 <button class="map-btn" data-municipality="La Habana Vieja" data-count="0" style="top: 22%; left: 32%;">Habana Vieja</button>
 <button class="map-btn" data-municipality="Centro Habana" data-count="0" style="top: 32%; left: 26%;">Centro Habana</button>
@@ -608,16 +632,16 @@ usemap="#havana-map">
 <section class="py-20">
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
 <div class="rounded-3xl p-12" style="background: linear-gradient(135deg, var(--accent), var(--accent-dark))">
-<h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Listo para encontrar tu hogar?</h2>
+<h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">¿Listo para encontrar tu hogar?</h2>
 <p class="text-lg text-white/90 mb-8">
-Nuestro equipo esta listo para ayudarte a dar el siguiente paso. Contactanos hoy mismo.
+Nuestro equipo está listo para ayudarte a dar el siguiente paso. Contáctanos hoy mismo.
 </p>
 <div class="flex flex-wrap gap-4 justify-center">
 <button onclick="showPage('ofertas')" class="bg-white px-8 py-4 rounded-lg font-semibold transition-all hover:scale-105" style="color: var(--accent)">
 Ver Propiedades
 </button>
 <button onclick="showPage('contacto')" class="bg-white/20 text-white px-8 py-4 rounded-lg font-semibold transition-all hover:bg-white/30">
-Contactanos
+Contáctanos
 </button>
 </div>
 </div>
@@ -645,13 +669,13 @@ Contactanos
 </div>
 <!-- Min Price -->
 <div>
-<label class="block text-sm font-semibold mb-2" style="color: var(--fg)">Precio Minimo (USD)</label>
+<label class="block text-sm font-semibold mb-2" style="color: var(--fg)">Precio Mínimo (USD)</label>
 <input type="range" id="price-min" class="range-slider" min="1000" max="100000" value="1000" step="500">
 <div class="text-sm mt-1 font-semibold" style="color: var(--accent)">$<span id="price-min-display">1,000</span></div>
 </div>
 <!-- Max Price -->
 <div>
-<label class="block text-sm font-semibold mb-2" style="color: var(--fg)">Precio Maximo (USD)</label>
+<label class="block text-sm font-semibold mb-2" style="color: var(--fg)">Precio Máximo (USD)</label>
 <input type="range" id="price-max" class="range-slider" min="1000" max="100000" value="100000" step="500">
 <div class="text-sm mt-1 font-semibold" style="color: var(--accent)">$<span id="price-max-display">100,000</span></div>
 </div>
@@ -663,14 +687,14 @@ Contactanos
 <option value="La Habana Vieja">La Habana Vieja</option>
 <option value="Centro Habana">Centro Habana</option>
 <option value="Cerro">Cerro</option>
-<option value="Plaza de la Revolucion">Plaza de la Revolucion</option>
+<option value="Plaza de la Revolucion">Plaza de la Revolución</option>
 <option value="Playa">Playa</option>
 <option value="Marianao">Marianao</option>
 <option value="La Lisa">La Lisa</option>
 <option value="Boyeros">Boyeros</option>
 <option value="Arroyo Naranjo">Arroyo Naranjo</option>
 <option value="Diez de Octubre">Diez de Octubre</option>
-<option value="San Miguel del Padron">San Miguel del Padron</option>
+<option value="San Miguel del Padron">San Miguel del Padrón</option>
 <option value="Habana del Este">Habana del Este</option>
 <option value="Regla">Regla</option>
 <option value="Guanabacoa">Guanabacoa</option>
@@ -683,20 +707,10 @@ Contactanos
 </div>
 </div>
 
-<!-- Admin Button -->
-<div class="flex justify-end mb-6 stagger-item" style="animation-delay: 0.3s">
-<button onclick="openAddModal()" class="btn-secondary flex items-center gap-2">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<line x1="12" y1="5" x2="12" y2="19"/>
-<line x1="5" y1="12" x2="19" y2="12"/>
-</svg>
-Agregar Propiedad
-</button>
-</div>
-
 <!-- Properties Grid -->
 <div id="properties-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-<!-- Properties will be rendered here -->
+<!-- Loading State -->
+<div class="loading-spinner"></div>
 </div>
 
 <!-- Empty State -->
@@ -707,7 +721,19 @@ Agregar Propiedad
 </svg>
 <h3 class="text-xl font-bold mb-2" style="color: var(--fg)">No hay propiedades</h3>
 <p style="color: var(--fg-muted)">No se encontraron propiedades con esos criterios</p>
-<button onclick="openAddModal()" class="btn-secondary mt-4">Agregar Primera Propiedad</button>
+<button onclick="showPage('contacto')" class="btn-secondary mt-4">Contáctanos para más información</button>
+</div>
+
+<!-- Error State -->
+<div id="error-state" class="text-center py-16 hidden">
+<svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="mx-auto mb-4" style="color: #dc2626">
+<circle cx="12" cy="12" r="10"/>
+<line x1="12" y1="8" x2="12" y2="12"/>
+<line x1="12" y1="16" x2="12.01" y2="16"/>
+</svg>
+<h3 class="text-xl font-bold mb-2" style="color: var(--fg)">Error al cargar propiedades</h3>
+<p style="color: var(--fg-muted)">Verifica que el archivo properties.json exista</p>
+<button onclick="loadProperties()" class="btn-secondary mt-4">Reintentar</button>
 </div>
 </div>
 </section>
@@ -719,9 +745,9 @@ Agregar Propiedad
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <!-- Page Header -->
 <div class="text-center mb-16 stagger-item">
-<h1 class="text-4xl sm:text-5xl font-bold mb-4" style="color: var(--fg)">Donde Encontrarnos</h1>
+<h1 class="text-4xl sm:text-5xl font-bold mb-4" style="color: var(--fg)">Contáctanos</h1>
 <p class="text-lg max-w-2xl mx-auto" style="color: var(--fg-muted)">
-Estamos disponibles en multiples plataformas. Elige la forma mas comoda de contactarnos.
+Estamos disponibles en múltiples plataformas. Elige la forma más cómoda de contactarnos.
 </p>
 </div>
 
@@ -738,7 +764,7 @@ Estamos disponibles en multiples plataformas. Elige la forma mas comoda de conta
 <div>
 <h3 class="text-xl font-bold" style="color: var(--fg)">Perfil de Facebook</h3>
 <p class="text-sm" style="color: var(--fg-muted)">Isabel Alcoba</p>
-<span class="text-sm font-semibold" style="color: var(--accent)">Visitar perfil</span>
+<span class="text-sm font-semibold" style="color: var(--accent)">Visitar perfil →</span>
 </div>
 </div>
 </a>
@@ -751,9 +777,9 @@ Estamos disponibles en multiples plataformas. Elige la forma mas comoda de conta
 </svg>
 </div>
 <div>
-<h3 class="text-xl font-bold" style="color: var(--fg)">Pagina de Facebook</h3>
+<h3 class="text-xl font-bold" style="color: var(--fg)">Página de Facebook</h3>
 <p class="text-sm" style="color: var(--fg-muted)">Buscando Techo Habana</p>
-<span class="text-sm font-semibold" style="color: var(--accent)">Visitar pagina</span>
+<span class="text-sm font-semibold" style="color: var(--accent)">Visitar página →</span>
 </div>
 </div>
 </a>
@@ -768,7 +794,7 @@ Estamos disponibles en multiples plataformas. Elige la forma mas comoda de conta
 <div>
 <h3 class="text-xl font-bold" style="color: var(--fg)">Bot de Telegram</h3>
 <p class="text-sm" style="color: var(--fg-muted)">@BtechoBot</p>
-<span class="text-sm font-semibold" style="color: var(--accent)">Iniciar chat</span>
+<span class="text-sm font-semibold" style="color: var(--accent)">Iniciar chat →</span>
 </div>
 </div>
 </a>
@@ -783,7 +809,7 @@ Estamos disponibles en multiples plataformas. Elige la forma mas comoda de conta
 <div>
 <h3 class="text-xl font-bold" style="color: var(--fg)">Canal de Telegram</h3>
 <p class="text-sm" style="color: var(--fg-muted)">Buscando Techo Hab</p>
-<span class="text-sm font-semibold" style="color: var(--accent)">Unirse al canal</span>
+<span class="text-sm font-semibold" style="color: var(--accent)">Unirse al canal →</span>
 </div>
 </div>
 </a>
@@ -792,7 +818,7 @@ Estamos disponibles en multiples plataformas. Elige la forma mas comoda de conta
 <!-- Info Section -->
 <div class="mt-16 text-center stagger-item" style="animation-delay: 0.5s">
 <div class="max-w-2xl mx-auto p-8 rounded-2xl" style="background: var(--card); box-shadow: 0 4px 20px rgba(45, 49, 66, 0.08)">
-<h3 class="text-2xl font-bold mb-6" style="color: var(--fg)">Horarios de Atencion</h3>
+<h3 class="text-2xl font-bold mb-6" style="color: var(--fg)">Horarios de Atención</h3>
 <div class="space-y-3">
 <div class="flex items-center justify-center gap-2">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--accent)">
@@ -806,7 +832,7 @@ Estamos disponibles en multiples plataformas. Elige la forma mas comoda de conta
 <circle cx="12" cy="12" r="10"/>
 <polyline points="12,6 12,12 16,14"/>
 </svg>
-<p style="color: var(--fg)"><span class="font-semibold">Sabado y Domingo:</span> 8:00 AM - 8:00 PM</p>
+<p style="color: var(--fg)"><span class="font-semibold">Sábado y Domingo:</span> 8:00 AM - 8:00 PM</p>
 </div>
 </div>
 <p class="mt-6 text-sm" style="color: var(--fg-muted)">Respondemos mensajes en menos de 24 horas</p>
@@ -815,6 +841,7 @@ Estamos disponibles en multiples plataformas. Elige la forma mas comoda de conta
 </div>
 </section>
 </div>
+
 </main>
 
 <!-- Footer -->
@@ -835,82 +862,6 @@ Estamos disponibles en multiples plataformas. Elige la forma mas comoda de conta
 </div>
 </footer>
 
-<!-- Add Property Modal -->
-<div id="add-modal" class="modal">
-<div class="modal-content p-8">
-<div class="flex justify-between items-center mb-6">
-<h2 class="text-2xl font-bold" style="color: var(--fg)">Agregar Propiedad</h2>
-<button onclick="closeAddModal()" class="p-2 rounded-lg hover:bg-gray-100" aria-label="Cerrar">
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<line x1="18" y1="6" x2="6" y2="18"/>
-<line x1="6" y1="6" x2="18" y2="18"/>
-</svg>
-</button>
-</div>
-<form id="add-property-form" class="space-y-4">
-<!-- Headline -->
-<div>
-<label class="block text-sm font-semibold mb-2" style="color: var(--fg)">Titulo del Anuncio</label>
-<input type="text" id="prop-headline" class="form-input" placeholder="Casa moderna en Playa con jardin" required>
-</div>
-<!-- Photos -->
-<div>
-<label class="block text-sm font-semibold mb-2" style="color: var(--fg)">Fotos (1-10 imagenes)</label>
-<input type="file" id="prop-photos" class="form-input" accept="image/*" multiple min="1" max="10">
-<div id="photo-preview-container" class="flex flex-wrap gap-2 mt-2"></div>
-</div>
-<!-- Municipality -->
-<div>
-<label class="block text-sm font-semibold mb-2" style="color: var(--fg)">Municipio</label>
-<select id="prop-municipality" class="form-input" required>
-<option value="">Seleccionar municipio</option>
-<option value="La Habana Vieja">La Habana Vieja</option>
-<option value="Centro Habana">Centro Habana</option>
-<option value="Cerro">Cerro</option>
-<option value="Plaza de la Revolucion">Plaza de la Revolucion</option>
-<option value="Playa">Playa</option>
-<option value="Marianao">Marianao</option>
-<option value="La Lisa">La Lisa</option>
-<option value="Boyeros">Boyeros</option>
-<option value="Arroyo Naranjo">Arroyo Naranjo</option>
-<option value="Diez de Octubre">Diez de Octubre</option>
-<option value="San Miguel del Padron">San Miguel del Padron</option>
-<option value="Habana del Este">Habana del Este</option>
-<option value="Regla">Regla</option>
-<option value="Guanabacoa">Guanabacoa</option>
-<option value="Cotorro">Cotorro</option>
-</select>
-</div>
-<!-- Price -->
-<div>
-<label class="block text-sm font-semibold mb-2" style="color: var(--fg)">Precio (USD)</label>
-<input type="number" id="prop-price" class="form-input" placeholder="25000" min="1000" max="100000" required>
-</div>
-<!-- Type -->
-<div>
-<label class="block text-sm font-semibold mb-2" style="color: var(--fg)">Tipo de Propiedad</label>
-<div class="flex gap-4">
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="radio" name="prop-type" value="casa" class="w-5 h-5 accent-current" style="accent-color: var(--accent)" required>
-<span style="color: var(--fg)">Casa</span>
-</label>
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="radio" name="prop-type" value="apartamento" class="w-5 h-5" style="accent-color: var(--accent)">
-<span style="color: var(--fg)">Apartamento</span>
-</label>
-</div>
-</div>
-<!-- Description -->
-<div>
-<label class="block text-sm font-semibold mb-2" style="color: var(--fg)">Descripcion</label>
-<textarea id="prop-description" class="form-input" rows="4" placeholder="Describe la propiedad en detalle: habitaciones, banos, metros cuadrados, caracteristicas especiales..." required></textarea>
-</div>
-<!-- Submit -->
-<button type="submit" class="btn-primary w-full mt-6">Agregar Propiedad</button>
-</form>
-</div>
-</div>
-
 <!-- Property Detail Modal -->
 <div id="detail-modal" class="modal">
 <div class="modal-content p-0" style="max-width: 700px">
@@ -920,43 +871,55 @@ Estamos disponibles en multiples plataformas. Elige la forma mas comoda de conta
 
 <script>
 // ==================== DATA ====================
-// ⚠️ IMPORTANTE: Agrega tus propiedades aquí
-// Cada propiedad debe tener: id, headline, municipality, price, type, description, photos, featured
-let properties = [
-// Ejemplo de estructura (descomentar y editar para agregar propiedades):
-// {
-//     id: 1,
-//     headline: "Casa familiar en Playa con jardin amplio",
-//     municipality: "Playa",
-//     price: 45000,
-//     type: "casa",
-//     description: "Hermosa casa de 3 habitaciones y 2 banos...",
-//     photos: ["https://ejemplo.com/foto1.jpg"],
-//     featured: true
-// }
-];
-
-// Metrics data - ⚠️ EDITA ESTOS VALORES CON TUS DATOS REALES
+let properties = [];
 let metrics = {
-total: 21,      // Total de ventas realizadas
-month: 5,      // Ventas este mes
-available: 45   // Propiedades disponibles
+total: 22,
+month: 8,
+available: 45
 };
-
-// Selected municipality for map
 let selectedMunicipality = null;
 
 // ==================== INITIALIZATION ====================
 document.addEventListener('DOMContentLoaded', function() {
 initAnimations();
-renderProperties();
 initPriceSliders();
 initMapButtons();
-updateMetricsDisplay();
-updateMapCounts();
-document.getElementById('add-property-form').addEventListener('submit', handleAddProperty);
-document.getElementById('prop-photos').addEventListener('change', handlePhotoPreview);
+loadProperties();
 });
+
+// ==================== LOAD PROPERTIES FROM JSON ====================
+async function loadProperties() {
+const grid = document.getElementById('properties-grid');
+const emptyState = document.getElementById('empty-state');
+const errorState = document.getElementById('error-state');
+
+try {
+const response = await fetch('properties.json');
+if (!response.ok) throw new Error('HTTP error ' + response.status);
+properties = await response.json();
+
+// Update metrics
+metrics.available = properties.length;
+document.getElementById('metric-available').textContent = metrics.available;
+
+// Update map counts
+updateMapCounts();
+
+// Render properties
+renderProperties();
+
+// Hide loading, show content
+grid.innerHTML = '';
+emptyState.classList.add('hidden');
+errorState.classList.add('hidden');
+
+} catch (error) {
+console.error('Error loading properties:', error);
+grid.innerHTML = '';
+emptyState.classList.add('hidden');
+errorState.classList.remove('hidden');
+}
+}
 
 // ==================== PAGE NAVIGATION ====================
 function showPage(pageName) {
@@ -1003,13 +966,6 @@ entry.target.classList.add('revealed');
 }, { threshold: 0.1 });
 
 revealElements.forEach(el => observer.observe(el));
-}
-
-// ==================== METRICS ====================
-function updateMetricsDisplay() {
-document.getElementById('metric-total').textContent = metrics.total;
-document.getElementById('metric-month').textContent = metrics.month;
-document.getElementById('metric-available').textContent = metrics.available;
 }
 
 // ==================== PRICE SLIDERS ====================
@@ -1108,7 +1064,7 @@ emptyState.classList.add('hidden');
 grid.innerHTML = props.map((prop, index) => `
 <div class="property-card stagger-item" style="animation-delay: ${index * 0.1}s">
 <div class="relative overflow-hidden h-48">
-<img src="${prop.photos[0]}" alt="${prop.headline}" class="w-full h-full object-cover">
+<img src="${prop.photos[0]}" alt="${prop.headline}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=400&fit=crop'">
 <div class="absolute top-3 left-3">
 <span class="px-3 py-1 rounded-full text-xs font-semibold text-white" style="background: ${prop.type === 'casa' ? 'var(--accent)' : 'var(--gold)'}">
 ${prop.type === 'casa' ? 'Casa' : 'Apartamento'}
@@ -1135,7 +1091,7 @@ Destacada
 <div class="flex justify-between items-center">
 <span class="text-xl font-bold" style="color: var(--accent)">$${prop.price.toLocaleString()} USD</span>
 <button onclick="showPropertyDetail(${prop.id})" class="text-sm font-semibold transition-colors hover:underline" style="color: var(--accent)">
-Ver mas
+Ver más
 </button>
 </div>
 </div>
@@ -1174,9 +1130,19 @@ if (!prop) return;
 const modal = document.getElementById('detail-modal');
 const content = document.getElementById('detail-content');
 
+// Build photo gallery
+let galleryHTML = '';
+if (prop.photos && prop.photos.length > 1) {
+galleryHTML = '<div class="property-gallery">' + 
+prop.photos.slice(0, 4).map(photo => 
+`<img src="${photo}" onclick="showFullImage('${photo}')" onerror="this.src='https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=400&fit=crop'">`
+).join('') + 
+'</div>';
+}
+
 content.innerHTML = `
 <div class="relative">
-<img src="${prop.photos[0]}" alt="${prop.headline}" class="w-full h-64 object-cover">
+<img src="${prop.photos[0]}" alt="${prop.headline}" class="w-full h-64 object-cover" onerror="this.src='https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop'">
 <button onclick="closeDetailModal()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 flex items-center justify-center" aria-label="Cerrar">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 <line x1="18" y1="6" x2="6" y2="18"/>
@@ -1204,6 +1170,7 @@ Destacada
 <span style="color: var(--fg-muted)">${prop.municipality}</span>
 </div>
 <p class="mb-6 leading-relaxed" style="color: var(--fg-muted)">${prop.description}</p>
+${galleryHTML}
 <div class="flex justify-between items-center pt-4 border-t" style="border-color: var(--border)">
 <div>
 <span class="text-sm" style="color: var(--fg-muted)">Precio</span>
@@ -1222,90 +1189,14 @@ function closeDetailModal() {
 document.getElementById('detail-modal').classList.remove('active');
 }
 
-// ==================== ADD PROPERTY MODAL ====================
-function openAddModal() {
-document.getElementById('add-modal').classList.add('active');
-}
-
-function closeAddModal() {
-document.getElementById('add-modal').classList.remove('active');
-document.getElementById('add-property-form').reset();
-document.getElementById('photo-preview-container').innerHTML = '';
-}
-
-function handlePhotoPreview(e) {
-const container = document.getElementById('photo-preview-container');
-container.innerHTML = '';
-const files = Array.from(e.target.files).slice(0, 10);
-
-files.forEach(file => {
-const reader = new FileReader();
-reader.onload = function(e) {
-const img = document.createElement('img');
-img.src = e.target.result;
-img.className = 'photo-preview';
-container.appendChild(img);
-};
-reader.readAsDataURL(file);
-});
-}
-
-function handleAddProperty(e) {
-e.preventDefault();
-
-const headline = document.getElementById('prop-headline').value;
-const municipality = document.getElementById('prop-municipality').value;
-const price = parseInt(document.getElementById('prop-price').value);
-const type = document.querySelector('input[name="prop-type"]:checked').value;
-const description = document.getElementById('prop-description').value;
-const photoFiles = document.getElementById('prop-photos').files;
-
-let photos = [];
-if (photoFiles.length > 0) {
-// ⚠️ NOTA: En producción real, necesitarías subir las fotos a un servidor
-// Aquí usamos una imagen por defecto como placeholder
-photos = ["https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=400&fit=crop"];
-} else {
-photos = ["https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=400&fit=crop"];
-}
-
-const newProperty = {
-id: Date.now(),
-headline,
-municipality,
-price,
-type,
-description,
-photos,
-featured: false
-};
-
-properties.unshift(newProperty);
-metrics.available += 1;
-
-renderProperties();
-updateMetricsDisplay();
-updateMapCounts();
-closeAddModal();
-
-// ⚠️ IMPORTANTE: Los datos se pierden al recargar la página
-// Para producción, considera usar localStorage o una base de datos
-alert('Propiedad agregada exitosamente. Nota: Los datos se perderán al recargar la página. Para producción, implementa persistencia de datos.');
-}
-
 // Close modals on escape key
 document.addEventListener('keydown', function(e) {
 if (e.key === 'Escape') {
-closeAddModal();
 closeDetailModal();
 }
 });
 
 // Close modals on outside click
-document.getElementById('add-modal').addEventListener('click', function(e) {
-if (e.target === this) closeAddModal();
-});
-
 document.getElementById('detail-modal').addEventListener('click', function(e) {
 if (e.target === this) closeDetailModal();
 });
