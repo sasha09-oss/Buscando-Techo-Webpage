@@ -28,3 +28,25 @@ Sitio web de agencia inmobiliaria especializado en propiedades en La Habana, Cub
 ├── README.md # Documentación
 ├── LICENSE # Licencia MIT
 └── .gitignore # Archivos ignorados por Git
+
+## 🛠️ Tecnologías
+
+- HTML5
+- CSS3 (Tailwind CSS via CDN)
+- JavaScript (Vanilla)
+- Google Fonts (Nunito, Playfair Display)
+
+## 📞 Contacto
+
+- **Facebook:** [Isabel Alcoba](https://www.facebook.com/isabel.alcoba.96)
+- **Página Facebook:** [Buscando Techo Habana](https://www.facebook.com/profile.php?id=61579504739663)
+- **Telegram Bot:** [@BtechoBot](https://t.me/BtechoBot)
+- **Telegram Canal:** [Buscando Techo Hab](https://t.me/BuscandoTechoHab)
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver [LICENSE](LICENSE) para más detalles.
+
+---
+
+© 2024 Buscando Techo. Todos los derechos reservados.
