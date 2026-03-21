@@ -24,11 +24,14 @@ Sitio web de agencia inmobiliaria especializado en propiedades en La Habana, Cub
 5. Tu sitio estará disponible en `https://tu-usuario.github.io/tu-repositorio`
 
 ## 📁 Estructura del Proyecto
-├── index.html # Archivo principal
-├── README.md # Documentación
-├── LICENSE # Licencia MIT
-└── .gitignore # Archivos ignorados por Git
-
+├── index.html
+├── README.md
+├── License.md
+├── .gitignore
+└── assets/
+    └── images/
+        ├── hero.jpg          
+        └── mapa-habana.jpg   
 ## 🛠️ Tecnologías
 
 - HTML5
