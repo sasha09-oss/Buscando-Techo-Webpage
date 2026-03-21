@@ -599,7 +599,7 @@ Desde apartamentos compactos hasta casas familiares amplias. Garantizamos que cu
 <img src="assets/images/mapa-habana.jpg"
 alt="Mapa de Municipios de La Habana"
 class="rounded-2xl"
-onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/4/4e/Mapa_Habana.png'"
+onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/4/4e/Mapa_Habana.png'">
 <!-- Municipality Buttons positioned over map -->
 <button class="map-btn" data-municipality="Playa" data-count="0" style="top: 12%; left: 8%;">Playa</button>
 <button class="map-btn" data-municipality="Plaza de la Revolucion" data-count="0" style="top: 20%; left: 20%;">Plaza de la Rev.</button>
@@ -1135,14 +1135,14 @@ let galleryHTML = '';
 if (prop.photos && prop.photos.length > 1) {
 galleryHTML = '<div class="property-gallery">' + 
 prop.photos.slice(0, 4).map(photo => 
-`<img src="${photo}" onclick="showFullImage('${photo}')" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/4/4e/Mapa_Habana.png'">`
+`<img src="${photo}" onclick="showFullImage('${photo}')" onerror="this.src='https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=400&fit=crop'">`
 ).join('') + 
 '</div>';
 }
 
 content.innerHTML = `
 <div class="relative">
-<img src="${prop.photos[0]}" alt="${prop.headline}" class="w-full h-64 object-cover" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/4/4e/Mapa_Habana.png'">
+<img src="${prop.photos[0]}" alt="${prop.headline}" class="w-full h-64 object-cover" onerror="this.src='https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=400&fit=crop'">
 <button onclick="closeDetailModal()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 flex items-center justify-center" aria-label="Cerrar">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 <line x1="18" y1="6" x2="6" y2="18"/>
